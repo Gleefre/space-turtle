@@ -1,6 +1,7 @@
 (in-package #:space-turtle)
 
 (defstruct button
+  (last-key nil)
   (last-down nil)
   (last-up nil)
   (last-double-click nil))
@@ -91,13 +92,13 @@
         (translate 220 260)
         (scale (easing:in-out-back (time-from pause-time)))
         (rotate (* 360 (easing:in-out-back (time-from pause-time))))
-        (with-pen (make-pen :fill (gray 0.9 0.7))
+        (with-pen (make-pen :fill (name-color :pause))
           (rect 50 -100 50 200)
           (rect -100 -100 50 200))))))
 
 (defun draw-start (state)
   (declare (ignorable state))
-  (with-font (make-font :color (gray 0.6) :align :center :size 20)
+  (with-font (make-font :color (name-color :font) :align :center :size 20)
     (text *intro* 220 180)))
 
 (let ((best 0))
@@ -105,7 +106,7 @@
     (setf best (max best (state-score state)))))
 
 (defun draw-win (state)
-  (with-font (make-font :color (gray 0.6) :align :center :size 20)
+  (with-font (make-font :color (name-color :font) :align :center :size 20)
     (text (format nil "Last score: ~a" (state-score state)) 110 20)
     (text (format nil "Best score: ~a" (state-best-score state)) 330 20))
   (draw-start state))
@@ -118,7 +119,7 @@
                (1+ (floor time 1/8))))))
 
 (defun draw-game (state)
-  (with-font (make-font :color (gray 0.6) :align :center :size 40)
+  (with-font (make-font :color (name-color :font) :align :center :size 40)
     (text (format nil "Score: ~a" (state-score state)) 220 0))
   (update state)
   (with-current-matrix (translate 20 60)
@@ -128,7 +129,7 @@
       (with-slots (turtle apple bombs bomb-lines last-bombs pause-time pause-p) state
         (dolist (ent (list* apple turtle bombs))
           (draw-entity ent))
-        (with-pen (make-pen :stroke +red+ :weight (bomb-line-weight last-bombs pause-time))
+        (with-pen (make-pen :stroke (name-color :bomb-line) :weight (bomb-line-weight last-bombs pause-time))
           (dolist (line bomb-lines)
             (apply #'line line))))))
   (draw-pause state))
@@ -180,13 +181,15 @@
 
 ;; down / up / double click
 
-(defmethod kit.sdl2:keyboard-event ((app 1b) st ts rep? keysym)
+(defun button-event (app st name)
   (with-slots (state) app
     (with-slots (button) state
-      (with-slots (last-down last-up last-double-click) button
-        (unless (or rep? (not (eq (sdl2:scancode keysym) :scancode-space)))
+      (with-slots (last-down last-up last-double-click last-key) button
+        (when (or (not last-key)
+                  (eql name last-key))
           (case st
-            (:keydown
+            ((:mousebuttondown :keydown)
+             (setf last-key name)
              (if (and (< (time-from last-down 1/3 1) 1)
                       (or (not last-double-click)
                           (and (>= last-down last-double-click)
@@ -197,9 +200,18 @@
                         (hold-down app))
                  (progn (setf last-down (get-internal-real-time))
                         (hold-down app))))
-            (:keyup
-             (setf last-up (get-internal-real-time))
+            ((:mousebuttonup :keyup)
+             (setf last-up (get-internal-real-time)
+                   last-key nil)
              (hold-up app))))))))
+
+(defmethod kit.sdl2:keyboard-event ((app 1b) st ts rep? keysym)
+  (when (not rep?)
+    (button-event app st (sdl2:scancode keysym))))
+
+(defmethod kit.sdl2:mousebutton-event ((app 1b) st ts button x y)
+  (declare (ignorable ts x y))
+  (button-event app st button))
 
 ;; sound
 (defmethod setup ((app 1b) &key &allow-other-keys)

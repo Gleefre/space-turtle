@@ -25,7 +25,9 @@
 ;; color palette
 
 (defparameter *colors*
-  '((:... . "ff00ff")))
+  '((:font . "ffc8ff")
+    (:pause . "dcfaff")
+    (:bomb-line . "dc6ea5")))
 
 (defun name-color (name)
   (sketch:hex-to-color (cdr (assoc name *colors*))))
