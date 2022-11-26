@@ -9,8 +9,8 @@
 (defparameter *turtle-speed* 1)
 (defparameter *turtle-rotation-speed* 1)
 (defparameter *apple-rad* 8)
-(defparameter *bomb-rad* 10)
-(defparameter *bomb-speed* 2)
+(defparameter *bomb-rad* 5)
+(defparameter *bomb-speed* 3)
 
 (defstruct entity
   (x 0) (y 0) (rad 0)
@@ -24,7 +24,7 @@
     (with-slots (x y rad) ent2
       (< (sqrt (+ (expt (- x1 x) 2)
                   (expt (- y1 y) 2)))
-         (+ rad1 rad)))))
+         (* 1.1 (+ rad1 rad))))))
 
 (defun move (entity)
   (with-slots (speed angle x y rotation-speed wrap) entity
@@ -68,6 +68,6 @@
   (make-entity :x x :y y
                :speed *bomb-speed*
                :rad *bomb-rad*
-               :angle (floor (degrees (atan (- y-end y) (- x-end x))))
+               :angle (floor (+ 90 (degrees (atan (- y-end y) (- x-end x)))))
                :image-name *bomb*
                :wrap nil))

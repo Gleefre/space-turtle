@@ -2,7 +2,7 @@
 
 ;; general
 (defun random-between (x y)
-  (+ x (random (- y x))))
+  (+ x (random (1+ (- y x)))))
 
 ;; animation
 (defun time-from (x &optional (divisor 1) (default 0))
