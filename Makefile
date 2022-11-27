@@ -2,7 +2,8 @@ LISP ?= sbcl
 GAME = space-turtle
 
 build:
-	$(LISP) --load $(GAME).asd \
+	$(LISP) --eval "(ql:quickload :deploy)" \
+		--load $(GAME).asd \
 		--load build.lisp \
 		--quit
 
