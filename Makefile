@@ -28,7 +28,7 @@ win_bundle:
 	cp run.bat .\$(GAME)
 	cp NOTICE .\$(GAME)
 	cp LICENSE .\$(GAME)
-	Compress-Archive -Path .\$(GAME) -DestinationPath .\$(GAME)-win
+	Compress-Archive -Path .\$(GAME)-win -DestinationPath .\$(GAME)
 
 mac_bundle:
 	mv bin $(GAME)
