@@ -35,9 +35,11 @@
   (sketch:hex-to-color (cdr (assoc name *colors*))))
 
 (defparameter *intro*
-  (format nil "Use any button to play this game.~%~
-               But you can use only one button.~2% ~
-               Double click  -- pause/start.~%~
-               Press and hold -- turn left.  ~%~
-               Unpress button -- turn right. ~%~
-               Good luck!"))
+"Use any button to play this game.
+But you can use only one button.
+
+Double click  -- pause/start.
+Press and hold -- turn left. 
+Unpress button -- turn right.
+
+Good luck!")
