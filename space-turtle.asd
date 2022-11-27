@@ -1,6 +1,6 @@
 (asdf:defsystem "space-turtle"
   :description "Snake like game in space"
-  :version "0.2.0"
+  :version "0.5.0"
   :author "Gleefre <varedif.a.s@gmail.com>"
   :licence "Apache 2.0"
   :depends-on ("sketch" "sdl2-mixer" "easing")
