@@ -113,7 +113,7 @@
 
 (defun bomb-line-weight (last-bombs pause-time)
   (if (not last-bombs) 1
-      (progn (when pause-time
+      (progn (when (and pause-time (> pause-time last-bombs))
                (incf last-bombs (- (get-internal-real-time) pause-time)))
              (let ((time (time-from last-bombs *bomb-lines-time*)))
                (1+ (floor time 1/8))))))
