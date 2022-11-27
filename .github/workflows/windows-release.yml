@@ -58,6 +58,9 @@ jobs:
         LISP=C:/ProgramData/chocolatey/bin/sbcl.exe make build
         make win_bundle
       shell: msys2 {0}
+    
+    - name: compress bundle
+      run: Compress-Archive -Path .\space-turtle -DestinationPath .\space-turtle-win
 
     - name: upload release
       uses: actions/upload-artifact@v3
