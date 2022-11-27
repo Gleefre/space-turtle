@@ -24,11 +24,11 @@ lin_bundle:
 
 win_bundle:
 	mkdir $(GAME)
-	mv .\bin\ .\$(GAME)
-	cp run.bat .\$(GAME)
-	cp NOTICE .\$(GAME)
-	cp LICENSE .\$(GAME)
-	Compress-Archive -Path .\$(GAME) -DestinationPath .\$(GAME)-win
+	mv bin "$(GAME)\"
+	cp run.bat $(GAME)
+	cp NOTICE $(GAME)
+	cp LICENSE $(GAME)
+	Compress-Archive -Path $(GAME) -DestinationPath $(GAME)-win
 
 mac_bundle:
 	mv bin $(GAME)
