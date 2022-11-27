@@ -24,7 +24,7 @@ lin_bundle:
 
 win_bundle:
 	mkdir $(GAME)
-	mv bin "$(GAME)\"
+	mv bin "$(GAME)\\"
 	cp run.bat $(GAME)
 	cp NOTICE $(GAME)
 	cp LICENSE $(GAME)
