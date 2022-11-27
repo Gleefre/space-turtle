@@ -53,7 +53,7 @@
 ;; setup
 
 (defun make-turtle ()
-  (make-entity :y 200 :rad *turtle-rad*
+  (make-entity :y 200 :rad *turtle-rad* :angle 90
                :speed *turtle-speed*
                :rotation-speed *turtle-rotation-speed*
                :image-name *turtle*))

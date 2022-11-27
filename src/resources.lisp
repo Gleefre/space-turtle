@@ -27,7 +27,9 @@
 (defparameter *colors*
   '((:font . "ffc8ff")
     (:pause . "dcfaff")
-    (:bomb-line . "dc6ea5")))
+    (:bomb-line . "dc6ea5")
+    (:rare . "fe65cb")
+    (:common . "7f00ff")))
 
 (defun name-color (name)
   (sketch:hex-to-color (cdr (assoc name *colors*))))

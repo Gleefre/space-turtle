@@ -9,7 +9,7 @@
 (defpackage #:space-turtle/utils
   (:use #:cl #:sketch)
   (:export #:random-between
-           #:time-from
+           #:time-from #:filter-alpha
            #:fit #:with-scissor)
   (:nicknames #:st/utils))
 

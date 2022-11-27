@@ -11,6 +11,12 @@
          internal-time-units-per-second
          divisor)))
 
+;; colors
+
+(defun filter-alpha (color alpha)
+  (rgb (color-red color) (color-green color) (color-blue color)
+       alpha))
+
 ;; fit -- function to fit desired width/height to rectangle on screen
 (defun fit (width height from-width from-height &optional (to-x 0) (to-y 0) (from-x 0) (from-y 0) max-scale)
   (translate from-x from-y)

@@ -11,6 +11,7 @@
                (:file "hacks")
                (:file "entities")
                (:file "sound")
+               (:file "background")
                (:file "turtle"))
 
   :defsystem-depends-on (:deploy)
